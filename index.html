@@ -20,9 +20,11 @@
         margin-bottom: 10px;
       }
       .button {
+        width: 150px;
+        height: 80px;
+        font-size: 30px;
         padding: 10px 20px;
         margin: 0 10px;
-        font-size: 16px;
         cursor: pointer;
         background-color: #007bff;
         color: white;
@@ -42,27 +44,40 @@
         width: 100%; /* Take full width */
       }
       .image {
-        max-width: 90%; /* Limit each image width to 90% of the container width */
+        width: 90%; /* Adjusted width */
         height: auto;
         margin-bottom: 10px;
         border: 1px solid #ccc;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .image:hover {
+        transform: scale(1.05); /* Zoom effect on hover */
+      }
+      #buttonContainerBottom{
+        margin-bottom: 200px;
+      }
+
+      /* Media query for devices with a max-width of 600px */
+      @media (max-width: 600px) {
+        .image {
+          width: 100%; /* Full width for small screens */
+          margin: 0; /* No margins for small screens */
+          transform: scale(2.0); /* Zoom images to 200% */
+          transition: transform 0.3s ease;
+        }
       }
     </style>
   </head>
   <body>
     <div class="buttonContainer" id="buttonContainerTop">
       <button class="button" onclick="changePage(-1)">5 <<</button>
-      <button class="button" onclick="changePage(1)">
-        >> 5
-      </button>
+      <button class="button" onclick="changePage(1)">>> 5</button>
     </div>
     <div class="images-container" id="imagesContainer"></div>
     <div class="buttonContainer" id="buttonContainerBottom">
       <button class="button" onclick="changePage(-1)">5 <<</button>
-      <button class="button" onclick="changePage(1)">
-        >> 5
-      </button>
+      <button class="button" onclick="changePage(1)">>> 5</button>
     </div>
     <script>
       const availableImages = [
@@ -99,19 +114,19 @@
       function changePage(direction) {
         let newIndex = currentPageIndex + direction * imagesPerPage;
         if (newIndex < 0) {
-          currentPageIndex = 0; // Stay at the first page
+          currentPageIndex = 0;
         } else if (newIndex >= availableImages.length) {
           currentPageIndex = Math.max(
             0,
             availableImages.length - imagesPerPage
-          ); // Stay at the last page
+          );
         } else {
           currentPageIndex = newIndex;
         }
         updateImages();
       }
 
-      window.onload = updateImages; // Initialize the view with the first set of images
+      window.onload = updateImages;
     </script>
   </body>
 </html>
